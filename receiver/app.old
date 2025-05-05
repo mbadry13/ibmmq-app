@@ -1,0 +1,20 @@
+import pymqi
+
+queue_manager = 'QM1'
+channel = 'CHANNEL1'
+host = '192.168.18.124'
+port = '1414'
+queue_name = 'MY.QUEUE.1'
+
+conn_info = f'{host}({port})'
+
+qmgr = pymqi.connect(queue_manager, channel, conn_info)
+
+queue = pymqi.Queue(qmgr, queue_name)
+
+message = queue.get()
+print(f"Received message: {message.decode()}")
+
+queue.close()
+qmgr.disconnect()
+

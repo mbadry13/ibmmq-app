@@ -1,0 +1,21 @@
+import pymqi
+
+queue_manager = 'QM1'
+channel = 'CHANNEL1'
+host = '192.168.18.124'
+port = '1414'
+queue_name = 'MY.QUEUE.1'
+user = 'mqm'
+password = 'P@ssw0rd'
+conn_info = f'{host}({port})'
+qmgr = pymqi.connect(queue_manager, channel, conn_info, user, password)
+queue = pymqi.Queue(qmgr, queue_name)
+
+message = 'Hello from Sender App!'
+queue.put(message)
+
+print(f"Sent message: {message}")
+
+queue.close()
+qmgr.disconnect()
+
